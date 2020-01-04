@@ -16,6 +16,11 @@
         <postgresql.driver.version>42.2.2</postgresql.driver.version>
         <postgresql.driver.name>org.postgresql.Driver</postgresql.driver.name>
         <sql.path>${basedir}/src/main/resources/sql</sql.path>
+        <server.host>localhost</server.host>
+        <server.port>5432</server.port>
+        <database.name>quora</database.name>
+        <database.user>postgres</database.user>
+        <database.password>rameshanu</database.password>
     </properties>
 
     <build>
