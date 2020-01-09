@@ -20,8 +20,9 @@
         <server.port>5432</server.port>
         <database.name>quora</database.name>
         <database.user>postgres</database.user>
-        <!--suppress UnresolvedMavenProperty -->
-        <database.password>${POSTGRES.PASSWORD}</database.password>
+        <!--suppress UnresolvedMavenProperty
+        <database.password>${POSTGRES.PASSWORD}</database.password> -->
+        <database.password>rameshanu</database.password>
     </properties>
 
     <build>
