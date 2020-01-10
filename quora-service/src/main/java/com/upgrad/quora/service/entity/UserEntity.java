@@ -12,7 +12,7 @@ import java.io.Serializable;
 @Table(name = "users", schema = "quora")
 @NamedQueries(
         {
-                @NamedQuery(name = "userByUuid", query = "select u from UserEntity u where u.uuid = :uuid"),
+                @NamedQuery(name = "userByUsername", query = "select u from UserEntity u where u.username = :username"),
                 @NamedQuery(name = "userByEmail", query = "select u from UserEntity u where u.email = :email")
         }
 )
