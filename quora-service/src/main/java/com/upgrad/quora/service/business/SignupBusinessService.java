@@ -25,7 +25,8 @@ public class SignupBusinessService {
         userEntity.setSalt(encrytpedText[0]);
         userEntity.setPassword(encrytpedText[1]);
         UserEntity createdUser = new UserEntity();
-        return userDAO.createUser(userEntity);
+        return createdUser;
+        //return userDAO.createUser(userEntity);
 
     }
 

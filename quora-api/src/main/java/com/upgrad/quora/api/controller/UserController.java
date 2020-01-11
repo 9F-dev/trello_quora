@@ -47,21 +47,22 @@ public class UserController {
 
         final UserEntity userEntity = new UserEntity();
 
-        userEntity.setUuid(UUID.randomUUID().toString());
-        userEntity.setFirstname(signupUserRequest.getFirstName());
-        userEntity.setLastname(signupUserRequest.getLastName());
-        userEntity.setUsername(signupUserRequest.getUserName());
-        userEntity.setEmail(signupUserRequest.getEmailAddress());
-        userEntity.setPassword(signupUserRequest.getPassword());
-        userEntity.setSalt("123abc");
-        userEntity.setCountry(signupUserRequest.getCountry());
-        userEntity.setAboutme(signupUserRequest.getAboutMe());
-        userEntity.setDob(signupUserRequest.getDob());
-        userEntity.setRole("NonAdmin");
-        userEntity.setContactnumber(signupUserRequest.getContactNumber());
+        //userEntity.setUuid(UUID.randomUUID().toString());
+        //userEntity.setFirstname(signupUserRequest.getFirstName());
+        //userEntity.setLastname(signupUserRequest.getLastName());
+        //userEntity.setUsername(signupUserRequest.getUserName());
+        //userEntity.setEmail(signupUserRequest.getEmailAddress());
+        //userEntity.setPassword(signupUserRequest.getPassword());
+        //userEntity.setSalt("123abc");
+        //userEntity.setCountry(signupUserRequest.getCountry());
+        //userEntity.setAboutme(signupUserRequest.getAboutMe());
+        //userEntity.setDob(signupUserRequest.getDob());
+        //userEntity.setRole("NonAdmin");
+        //userEntity.setContactnumber(signupUserRequest.getContactNumber());
 
         final UserEntity createdUserEntity = signupBusinessService.signup(userEntity);
-        SignupUserResponse userResponse = new SignupUserResponse().id(createdUserEntity.getUuid()).status("USER SUCCESSFULLY REGISTERED");
+        SignupUserResponse userResponse = new SignupUserResponse();
+        //.id(createdUserEntity.getUuid()).status("USER SUCCESSFULLY REGISTERED");
         return new ResponseEntity<SignupUserResponse>(userResponse, HttpStatus.CREATED);
 
     }
@@ -89,7 +90,8 @@ public class UserController {
         userAuthEntity.setLogoutAt(ZonedDateTime.now());
         signoutBusinessService.updateLogouttime(userAuthEntity);
         UserEntity userEntity = userAuthEntity.getUser();
-        SignoutResponse signoutResponse = new SignoutResponse().id(userEntity.getUuid()).message("SIGNED OUT SUCCESSFULLY");
+        SignoutResponse signoutResponse = new SignoutResponse();
+        //.id(userEntity.getUuid()).message("SIGNED OUT SUCCESSFULLY");
         return new ResponseEntity<SignoutResponse>(signoutResponse, HttpStatus.OK);
     }
 

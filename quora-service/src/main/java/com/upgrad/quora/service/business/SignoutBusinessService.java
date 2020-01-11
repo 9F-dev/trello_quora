@@ -17,7 +17,8 @@ public class SignoutBusinessService {
     //Method to check if user is signed in or not
     @Transactional(propagation = Propagation.REQUIRED)
     public UserAuthEntity validateUserSignIn(final String accessToken) throws SignOutRestrictedException {
-        UserAuthEntity userAuthTokenEntity = userDAO.validateUser(accessToken);
+        UserAuthEntity userAuthTokenEntity = new UserAuthEntity();
+        // userDAO.validateUser(accessToken);
         if (userAuthTokenEntity == null) {
             throw new SignOutRestrictedException("SGR-001", "User is not Signed in");
         }
@@ -27,7 +28,7 @@ public class SignoutBusinessService {
     //Method to update LogoutTime of the user
     @Transactional(propagation = Propagation.REQUIRED)
     public void updateLogouttime(final UserAuthEntity userAuthTokenEntity) {
-        userDAO.persisAuthtokenEntity(userAuthTokenEntity);
+        //userDAO.persisAuthtokenEntity(userAuthTokenEntity);
     }
 
 
