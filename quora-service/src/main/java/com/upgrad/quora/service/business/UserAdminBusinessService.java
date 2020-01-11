@@ -4,6 +4,8 @@ import com.upgrad.quora.service.dao.UserAuthDao;
 import com.upgrad.quora.service.dao.UserDao;
 import com.upgrad.quora.service.entity.UserAuthEntity;
 import com.upgrad.quora.service.entity.UserEntity;
+import com.upgrad.quora.service.exception.AuthorizationFailedException;
+import com.upgrad.quora.service.exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.stereotype.Service;
@@ -13,43 +15,34 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class UserAdminBusinessService {
 
-    public enum UserDeleteStatus {
-        ATHR001, ATHR002, ATHR003, USR001, SUCCESS;
-    }
-
     @Autowired
     private UserDao userDao;
 
     @Autowired
     private UserAuthDao userAuthDao;
 
-    @Transactional(propagation = Propagation.REQUIRED)  //check this later
+    @Transactional(propagation = Propagation.REQUIRED)
 
-    public UserDeleteStatus delete(String userUuid, String authToken) {
+    public UserEntity delete(String userUuid, String authToken) throws AuthorizationFailedException, UserNotFoundException {
 
         UserAuthEntity userAuthEntity = userAuthDao.getUserAuthFromAuthToken(authToken);
-        UserDeleteStatus userDeleteStatus = null;
 
         if (userAuthEntity == null) {                               //User has not signed in
-            userDeleteStatus = UserDeleteStatus.ATHR001;
+            throw new AuthorizationFailedException("ATHR-001", "User has not signed in");
         }
 
         if (userAuthEntity.getLogoutAt() != null) {                 //User is signed out
-            userDeleteStatus = UserDeleteStatus.ATHR002;
+            throw new AuthorizationFailedException("ATHR-002", "User is signed out");
         }
 
         if (!userAuthEntity.getUser().getRole().equals("Admin")) {   //Unauthorized Access, Entered user is not an admin
-            userDeleteStatus = UserDeleteStatus.ATHR003;
+            throw new AuthorizationFailedException("ATHR-003", "Unauthorized Access, Entered user is not an admin");
         }
 
-        if (userAuthEntity.getUser().getRole().equals("Admin")) {
-                if (userDao.getUser(userUuid) != null) {            //USER SUCCESSFULLY DELETED
-                userDao.deleteUser(userUuid);
-                userDeleteStatus = UserDeleteStatus.SUCCESS;
-            } else {                                                //User with entered uuid to be deleted does not exist
-                userDeleteStatus = UserDeleteStatus.USR001;
-            }
-        }
-        return userDeleteStatus;
+
+        if (userDao.getUser(userUuid) != null) {
+
+            return userDao.deleteUser(userUuid);                      //USER SUCCESSFULLY DELETED
+        } else throw new UserNotFoundException("USR-001","User with entered uuid to be deleted does not exist");
     }
 }
