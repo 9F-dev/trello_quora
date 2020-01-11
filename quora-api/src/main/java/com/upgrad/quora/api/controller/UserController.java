@@ -47,27 +47,26 @@ public class UserController {
 
         final UserEntity userEntity = new UserEntity();
 
-        //userEntity.setUuid(UUID.randomUUID().toString());
-        //userEntity.setFirstname(signupUserRequest.getFirstName());
-        //userEntity.setLastname(signupUserRequest.getLastName());
-        //userEntity.setUsername(signupUserRequest.getUserName());
-        //userEntity.setEmail(signupUserRequest.getEmailAddress());
-        //userEntity.setPassword(signupUserRequest.getPassword());
-        //userEntity.setSalt("123abc");
-        //userEntity.setCountry(signupUserRequest.getCountry());
-        //userEntity.setAboutme(signupUserRequest.getAboutMe());
-        //userEntity.setDob(signupUserRequest.getDob());
-        //userEntity.setRole("NonAdmin");
-        //userEntity.setContactnumber(signupUserRequest.getContactNumber());
+        userEntity.setUuid(UUID.randomUUID().toString());
+        userEntity.setFirstname(signupUserRequest.getFirstName());
+        userEntity.setLastname(signupUserRequest.getLastName());
+        userEntity.setUsername(signupUserRequest.getUserName());
+        userEntity.setEmail(signupUserRequest.getEmailAddress());
+        userEntity.setPassword(signupUserRequest.getPassword());
+        userEntity.setSalt("123abc");
+        userEntity.setCountry(signupUserRequest.getCountry());
+        userEntity.setAboutme(signupUserRequest.getAboutMe());
+        userEntity.setDob(signupUserRequest.getDob());
+        userEntity.setRole("NonAdmin");
+        userEntity.setContactnumber(signupUserRequest.getContactNumber());
 
         final UserEntity createdUserEntity = signupBusinessService.signup(userEntity);
-        SignupUserResponse userResponse = new SignupUserResponse();
-        //.id(createdUserEntity.getUuid()).status("USER SUCCESSFULLY REGISTERED");
+        SignupUserResponse userResponse = new SignupUserResponse().id(createdUserEntity.getUuid()).status("USER SUCCESSFULLY REGISTERED");
         return new ResponseEntity<SignupUserResponse>(userResponse, HttpStatus.CREATED);
 
     }
 
-/*
+
     //Endpoint for signin user authentication
     @RequestMapping(method = RequestMethod.POST, path = "/user/signin", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<SigninResponse> signin(@RequestHeader("authorization") final String authorization) throws AuthenticationFailedException {
@@ -79,7 +78,7 @@ public class UserController {
         headers.add("access-token", userAuthEntity.getAccessToken());
         return new ResponseEntity<SigninResponse>(authorizedUserResponse, headers, HttpStatus.OK);
     }
-*/
+
     //Method to signout the user of the Application
     //The Methods disables the user access to any other endpoints once signedout of Application
     @RequestMapping(method = RequestMethod.POST, path = "/user/signout", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -90,8 +89,7 @@ public class UserController {
         userAuthEntity.setLogoutAt(ZonedDateTime.now());
         signoutBusinessService.updateLogouttime(userAuthEntity);
         UserEntity userEntity = userAuthEntity.getUser();
-        SignoutResponse signoutResponse = new SignoutResponse();
-        //.id(userEntity.getUuid()).message("SIGNED OUT SUCCESSFULLY");
+        SignoutResponse signoutResponse = new SignoutResponse().id(userEntity.getUuid()).message("SIGNED OUT SUCCESSFULLY");
         return new ResponseEntity<SignoutResponse>(signoutResponse, HttpStatus.OK);
     }
 
