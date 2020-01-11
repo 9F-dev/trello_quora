@@ -1,56 +1,55 @@
 package com.upgrad.quora.service.entity;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
+import java.util.Objects;
 
 @Entity
-@Table(name = "user_auth", schema = "quora")
-@NamedQueries({
-        @NamedQuery(name = "userAuthByAccessToken", query = "select ut from UserAuthEntity ut where ut.accessToken = :accessToken ")
-})
-public class UserAuthEntity implements Serializable {
+@Table(name = "user_auth")
 
-    //columns are id, uuid, user_id, access_token, expires_at, login_at, logout_at
+@NamedQueries(
+        {
+                @NamedQuery(name = "userByAccessToken", query = "select ut from UserAuthEntity ut where ut.accessToken=:token"),
+                @NamedQuery(name = "getUserAuthDetailsByUuid", query = "select ut from UserAuthEntity ut where ut.uuid=:userUuid and ut.accessToken=:token and ut.logoutAt Is Null")
+
+        }
+)
+
+public class UserAuthEntity implements Serializable {
 
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "UUID")
+    @Size(max = 200)
+    private String uuid;
+
+    @ManyToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "USER_ID")
+    private UserEntity user;
+
     @Column(name = "ACCESS_TOKEN")
     @NotNull
     @Size(max = 500)
     private String accessToken;
 
-    @Column(name = "LOGIN_AT")
-    @NotNull
-    private ZonedDateTime loginAt;
-
     @Column(name = "EXPIRES_AT")
     @NotNull
     private ZonedDateTime expiresAt;
 
+    @Column(name = "LOGIN_AT")
+    @NotNull
+    private ZonedDateTime loginAt;
+
     @Column(name = "LOGOUT_AT")
     private ZonedDateTime logoutAt;
 
-    //Relationship with other entity
 
-    @ManyToOne
-    @JoinColumn(name = "USER_ID")
-    @Size(max = 200)
-    private UserEntity user;
-
-    @Version
-    @Column(name = "VERSION", length = 19, nullable = false)
-    private Long version;
 
     public Integer getId() {
         return id;
@@ -58,6 +57,14 @@ public class UserAuthEntity implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     public UserEntity getUser() {
@@ -76,14 +83,6 @@ public class UserAuthEntity implements Serializable {
         this.accessToken = accessToken;
     }
 
-    public ZonedDateTime getLoginAt() {
-        return loginAt;
-    }
-
-    public void setLoginAt(ZonedDateTime loginAt) {
-        this.loginAt = loginAt;
-    }
-
     public ZonedDateTime getExpiresAt() {
         return expiresAt;
     }
@@ -92,34 +91,41 @@ public class UserAuthEntity implements Serializable {
         this.expiresAt = expiresAt;
     }
 
+    public ZonedDateTime getLoginAt() {
+        return loginAt;
+    }
+
+    public void setLoginAt(ZonedDateTime loginAt) {
+        this.loginAt = loginAt;
+    }
+
     public ZonedDateTime getLogoutAt() {
-        return logoutAt=null;
+        return logoutAt;
     }
 
     public void setLogoutAt(ZonedDateTime logoutAt) {
         this.logoutAt = logoutAt;
     }
 
-    public Long getVersion() {
-        return version;
-    }
 
-    public void setVersion(Long version) {
-        this.version = version;
-    }
 
     @Override
-    public boolean equals(Object obj) {
-        return new EqualsBuilder().append(this, obj).isEquals();
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof UserAuthEntity)) return false;
+        UserAuthEntity that = (UserAuthEntity) o;
+        return Objects.equals(getId(), that.getId()) &&
+                Objects.equals(getUuid(), that.getUuid()) &&
+                Objects.equals(getUser(), that.getUser()) &&
+                Objects.equals(getAccessToken(), that.getAccessToken()) &&
+                Objects.equals(getExpiresAt(), that.getExpiresAt()) &&
+                Objects.equals(getLoginAt(), that.getLoginAt()) &&
+                Objects.equals(getLogoutAt(), that.getLogoutAt());
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().append(this).hashCode();
-    }
-
-    @Override
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+        return Objects.hash(getId(), getUuid(), getUser(), getAccessToken(), getExpiresAt(), getLoginAt(), getLogoutAt());
     }
 }
+
