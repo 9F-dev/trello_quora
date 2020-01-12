@@ -2,6 +2,8 @@ package com.upgrad.quora.service.business;
 
 
 import com.upgrad.quora.service.dao.UserDao;
+import com.upgrad.quora.service.dao.QuestionDao;
+import com.upgrad.quora.service.entity.QuestionEntity;
 import com.upgrad.quora.service.entity.UserAuthEntity;
 import com.upgrad.quora.service.entity.UserEntity;
 import com.upgrad.quora.service.exception.AuthorizationFailedException;
@@ -17,8 +19,8 @@ public class CommonBusinessService {
 	@Autowired
 	private UserDao userDao;
 
-	//@Autowired
-	//private QuestionDao questionDao;        //press Alt+Enter once Rinsheed implements the Dao
+	@Autowired
+	private QuestionDao questionDao;        //press Alt+Enter once Rinsheed implements the Dao
 
 	//@Autowired
 	//private AnswerDao answerDao;            //press Alt+Enter once Saransh implements the Dao
@@ -141,6 +143,15 @@ public class CommonBusinessService {
 					"User is signed out.Sign in first to get the answers");
 		}
 		return userAuthDetails;
+	}
+
+	// Method to get question Details based on questionID
+	public QuestionEntity findQuestionById(String questionId) throws AuthorizationFailedException {
+		QuestionEntity question = questionDao.findQuestionById(questionId);
+		if (question == null) {
+			throw new AuthorizationFailedException("QUES-001", "Entered question uuid does not exist");
+		}
+		return question;
 	}
 
 	//will implement code with question and answer Dao once they complete

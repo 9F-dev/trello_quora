@@ -1,7 +1,5 @@
 package com.upgrad.quora.service.business;
 
-
-//import com.upgrad.quora.service.dao.UserDao;
 import com.upgrad.quora.service.dao.UserDao;
 import com.upgrad.quora.service.entity.UserAuthEntity;
 import com.upgrad.quora.service.exception.AuthenticationFailedException;
@@ -14,15 +12,16 @@ import java.util.Base64;
 
 @Service
 public class SigninBusinessService {
-/*
+
     @Autowired
     private PasswordCryptographyProvider cryptographyProvider;
 
     @Autowired
-    private UserDao userDAO;
+    private UserDao userDao;
 
     @Autowired
-    private AuthenticationService authenticationService;
+    //private AuthenticationService authenticationService;
+    /******   *********/
 
     // Method to persist the user in Database
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
@@ -30,10 +29,10 @@ public class SigninBusinessService {
         byte[] decode = Base64.getDecoder().decode(authorization.split("Basic ")[1]);
         String decodedText = new String(decode);
         String[] decodedArray = decodedText.split(":");
-        UserAuthEntity userAuthToken = authenticationService.authenticate(decodedArray[0], decodedArray[1]);
-        userDao.persisAuthtokenEntity(userAuthToken);
+        UserAuthEntity userAuthToken = new UserAuthEntity();
+                //authenticationService.authenticate(decodedArray[0], decodedArray[1]);
+        //userDao.persisAuthtokenEntity(userAuthToken);
         return userAuthToken;
     }
-*/
 
 }
