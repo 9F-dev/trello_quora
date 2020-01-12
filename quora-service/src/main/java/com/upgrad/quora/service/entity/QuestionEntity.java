@@ -18,24 +18,24 @@ import java.util.Objects;
 })
 public class QuestionEntity implements Serializable {
     @Id
-    @Column(name = "id")
+    @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "uuid")
-    @Size(max = 64)
+    @Column(name = "UUID")
+    @Size(max = 200)
     private String uuid;
 
-    @Column(name = "content")
+    @Column(name = "CONTENT")
     @Size(max = 500)
     private String content;
 
-    @Column(name = "date")
+    @Column(name = "DATE")
     @NotNull
     private ZonedDateTime date;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "USER_ID")
     private UserEntity user;
 
     @Override
