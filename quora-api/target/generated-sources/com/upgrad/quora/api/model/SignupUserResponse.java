@@ -13,96 +13,96 @@ import javax.validation.constraints.*;
  * SignupUserResponse
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-12-31T14:16:31.967+05:30")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-01-12T14:08:44.995+05:30")
 
 public class SignupUserResponse   {
-    @JsonProperty("id")
-    private String id = null;
+  @JsonProperty("id")
+  private String id = null;
 
-    @JsonProperty("status")
-    private String status = null;
+  @JsonProperty("status")
+  private String status = null;
 
-    public SignupUserResponse id(String id) {
-        this.id = id;
-        return this;
+  public SignupUserResponse id(String id) {
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * uuid of the signed up user
+   * @return id
+  **/
+  @ApiModelProperty(required = true, value = "uuid of the signed up user")
+  @NotNull
+
+
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  public SignupUserResponse status(String status) {
+    this.status = status;
+    return this;
+  }
+
+  /**
+   * message showing the status of the signed up user
+   * @return status
+  **/
+  @ApiModelProperty(required = true, value = "message showing the status of the signed up user")
+  @NotNull
+
+
+  public String getStatus() {
+    return status;
+  }
+
+  public void setStatus(String status) {
+    this.status = status;
+  }
+
+
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
     }
-
-    /**
-     * uuid of the signed up user
-     * @return id
-     **/
-    @ApiModelProperty(required = true, value = "uuid of the signed up user")
-    @NotNull
-
-
-    public String getId() {
-        return id;
+    if (o == null || getClass() != o.getClass()) {
+      return false;
     }
+    SignupUserResponse signupUserResponse = (SignupUserResponse) o;
+    return Objects.equals(this.id, signupUserResponse.id) &&
+        Objects.equals(this.status, signupUserResponse.status);
+  }
 
-    public void setId(String id) {
-        this.id = id;
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, status);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class SignupUserResponse {\n");
+    
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
     }
-
-    public SignupUserResponse status(String status) {
-        this.status = status;
-        return this;
-    }
-
-    /**
-     * message showing the status of the signed up user
-     * @return status
-     **/
-    @ApiModelProperty(required = true, value = "message showing the status of the signed up user")
-    @NotNull
-
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-
-    @Override
-    public boolean equals(java.lang.Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        SignupUserResponse signupUserResponse = (SignupUserResponse) o;
-        return Objects.equals(this.id, signupUserResponse.id) &&
-                Objects.equals(this.status, signupUserResponse.status);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, status);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class SignupUserResponse {\n");
-
-        sb.append("    id: ").append(toIndentedString(id)).append("\n");
-        sb.append("    status: ").append(toIndentedString(status)).append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
-
-    /**
-     * Convert the given object to string with each line indented by 4 spaces
-     * (except the first line).
-     */
-    private String toIndentedString(java.lang.Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
-    }
+    return o.toString().replace("\n", "\n    ");
+  }
 }
 
