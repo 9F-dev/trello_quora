@@ -22,8 +22,8 @@ public class AdminBusinessService {
     @Autowired
     private QuestionDao questionDao;
 
-    //@Autowired
-    //private AnswerDao answerDao;
+    @Autowired
+    private AnswerDao answerDao;
 
     // Method to getUser Details
     public UserEntity getUserinfo(String Uuid) throws UserNotFoundException, AuthorizationFailedException {
@@ -118,7 +118,7 @@ public class AdminBusinessService {
 
     @Transactional(propagation = Propagation.REQUIRED)
     public void deleteAnswerById(AnswerEntity answerEntity) {
-        //answerDao.deleteAnswerById(answerEntity);
+        answerDao.deleteAnswerById(answerEntity);
 
     }
 }
