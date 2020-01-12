@@ -2,6 +2,8 @@ package com.upgrad.quora.api.controller;
 
 import com.upgrad.quora.api.model.SigninResponse;
 import com.upgrad.quora.api.model.SignoutResponse;
+//import com.upgrad.quora.api.model.SignupUserRequest;
+//import com.upgrad.quora.api.model.SignupUserResponse;
 import com.upgrad.quora.api.model.SignupUserRequest;
 import com.upgrad.quora.api.model.SignupUserResponse;
 import com.upgrad.quora.service.business.SigninBusinessService;
@@ -66,7 +68,7 @@ public class UserController {
 
     }
 
-
+/*
     //Endpoint for signin user authentication
     @RequestMapping(method = RequestMethod.POST, path = "/user/signin", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<SigninResponse> signin(@RequestHeader("authorization") final String authorization) throws AuthenticationFailedException {
@@ -92,7 +94,7 @@ public class UserController {
         SignoutResponse signoutResponse = new SignoutResponse().id(userEntity.getUuid()).message("SIGNED OUT SUCCESSFULLY");
         return new ResponseEntity<SignoutResponse>(signoutResponse, HttpStatus.OK);
     }
-
+*/
 
 
 

@@ -13,96 +13,96 @@ import javax.validation.constraints.*;
  * SigninResponse
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-12-31T14:16:31.967+05:30")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-01-12T14:08:44.995+05:30")
 
 public class SigninResponse   {
-    @JsonProperty("id")
-    private String id = null;
+  @JsonProperty("id")
+  private String id = null;
 
-    @JsonProperty("message")
-    private String message = null;
+  @JsonProperty("message")
+  private String message = null;
 
-    public SigninResponse id(String id) {
-        this.id = id;
-        return this;
+  public SigninResponse id(String id) {
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * uuid for the user authentication after he signs in.
+   * @return id
+  **/
+  @ApiModelProperty(required = true, value = "uuid for the user authentication after he signs in.")
+  @NotNull
+
+
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  public SigninResponse message(String message) {
+    this.message = message;
+    return this;
+  }
+
+  /**
+   * message to show the status of the signed in user
+   * @return message
+  **/
+  @ApiModelProperty(required = true, value = "message to show the status of the signed in user")
+  @NotNull
+
+
+  public String getMessage() {
+    return message;
+  }
+
+  public void setMessage(String message) {
+    this.message = message;
+  }
+
+
+  @Override
+  public boolean equals(java.lang.Object o) {
+    if (this == o) {
+      return true;
     }
-
-    /**
-     * uuid for the user authentication after he signs in.
-     * @return id
-     **/
-    @ApiModelProperty(required = true, value = "uuid for the user authentication after he signs in.")
-    @NotNull
-
-
-    public String getId() {
-        return id;
+    if (o == null || getClass() != o.getClass()) {
+      return false;
     }
+    SigninResponse signinResponse = (SigninResponse) o;
+    return Objects.equals(this.id, signinResponse.id) &&
+        Objects.equals(this.message, signinResponse.message);
+  }
 
-    public void setId(String id) {
-        this.id = id;
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, message);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class SigninResponse {\n");
+    
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    message: ").append(toIndentedString(message)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(java.lang.Object o) {
+    if (o == null) {
+      return "null";
     }
-
-    public SigninResponse message(String message) {
-        this.message = message;
-        return this;
-    }
-
-    /**
-     * message to show the status of the signed in user
-     * @return message
-     **/
-    @ApiModelProperty(required = true, value = "message to show the status of the signed in user")
-    @NotNull
-
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-
-    @Override
-    public boolean equals(java.lang.Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        SigninResponse signinResponse = (SigninResponse) o;
-        return Objects.equals(this.id, signinResponse.id) &&
-                Objects.equals(this.message, signinResponse.message);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, message);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class SigninResponse {\n");
-
-        sb.append("    id: ").append(toIndentedString(id)).append("\n");
-        sb.append("    message: ").append(toIndentedString(message)).append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
-
-    /**
-     * Convert the given object to string with each line indented by 4 spaces
-     * (except the first line).
-     */
-    private String toIndentedString(java.lang.Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
-    }
+    return o.toString().replace("\n", "\n    ");
+  }
 }
 

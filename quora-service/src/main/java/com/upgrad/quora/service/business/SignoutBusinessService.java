@@ -1,6 +1,7 @@
 package com.upgrad.quora.service.business;
 
-import com.upgrad.quora.service.dao.UserDAO;
+//import com.upgrad.quora.service.dao.UserDAO;
+import com.upgrad.quora.service.dao.UserDao;
 import com.upgrad.quora.service.entity.UserAuthEntity;
 import com.upgrad.quora.service.exception.SignOutRestrictedException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class SignoutBusinessService {
 
     @Autowired
-    private UserDAO userDAO;
+    private UserDao userDao;
 
     //Method to check if user is signed in or not
     @Transactional(propagation = Propagation.REQUIRED)
