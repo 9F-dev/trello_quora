@@ -20,8 +20,8 @@ public class SigninBusinessService {
     private UserDao userDao;
 
     @Autowired
-    //private AuthenticationService authenticationService;
-    /******   *********/
+    private AuthenticationService authenticationService;
+
 
     // Method to persist the user in Database
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
@@ -30,7 +30,7 @@ public class SigninBusinessService {
         String decodedText = new String(decode);
         String[] decodedArray = decodedText.split(":");
         UserAuthEntity userAuthToken = new UserAuthEntity();
-                //authenticationService.authenticate(decodedArray[0], decodedArray[1]);
+        authenticationService.authenticate(decodedArray[0], decodedArray[1]);
         //userDao.persisAuthtokenEntity(userAuthToken);
         return userAuthToken;
     }
