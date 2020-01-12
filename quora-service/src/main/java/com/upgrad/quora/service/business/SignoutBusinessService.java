@@ -1,6 +1,7 @@
 package com.upgrad.quora.service.business;
 
-import com.upgrad.quora.service.dao.UserDAO;
+//import com.upgrad.quora.service.dao.UserDAO;
+import com.upgrad.quora.service.dao.UserDao;
 import com.upgrad.quora.service.entity.UserAuthEntity;
 import com.upgrad.quora.service.exception.SignOutRestrictedException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +13,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class SignoutBusinessService {
 
     @Autowired
-    private UserDAO userDAO;
+    private UserDao userDao;
 
     //Method to check if user is signed in or not
     @Transactional(propagation = Propagation.REQUIRED)
     public UserAuthEntity validateUserSignIn(final String accessToken) throws SignOutRestrictedException {
-        UserAuthEntity userAuthTokenEntity = userDAO.validateUser(accessToken);
+        UserAuthEntity userAuthTokenEntity = new UserAuthEntity();
+        // userDAO.validateUser(accessToken);
         if (userAuthTokenEntity == null) {
             throw new SignOutRestrictedException("SGR-001", "User is not Signed in");
         }
@@ -27,7 +29,7 @@ public class SignoutBusinessService {
     //Method to update LogoutTime of the user
     @Transactional(propagation = Propagation.REQUIRED)
     public void updateLogouttime(final UserAuthEntity userAuthTokenEntity) {
-        userDAO.persisAuthtokenEntity(userAuthTokenEntity);
+        //userDAO.persisAuthtokenEntity(userAuthTokenEntity);
     }
 
 

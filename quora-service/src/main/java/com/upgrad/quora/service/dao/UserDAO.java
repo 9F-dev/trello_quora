@@ -12,12 +12,11 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 
 @Repository
-public class UserDAO {
-
+public class UserDao {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public UserEntity createUser(UserEntity userEntity) throws SignUpRestrictedException {
+    public UserEntity createUser(UserEntity userEntity) throws SignUpRestrictedException{
         try {
             entityManager.persist(userEntity);
             return userEntity;
@@ -36,10 +35,17 @@ public class UserDAO {
         }
     }
 
-    public UserEntity getUserByUsername(final String username) {
+    public UserEntity findByUsername(final String userName) {
         try {
-            return entityManager.createNamedQuery("userByUsername", UserEntity.class).setParameter("username", username)
-                    .getSingleResult();
+            return entityManager.createNamedQuery("userByUsername", UserEntity.class).setParameter("username", userName).getSingleResult();
+        } catch (NoResultException nre) {
+            return null;
+        }
+    }
+
+    public UserEntity findByEmail(final String userEmail) {
+        try {
+            return entityManager.createNamedQuery("userByEmail", UserEntity.class).setParameter("email", userEmail).getSingleResult();
         } catch (NoResultException nre) {
             return null;
         }
@@ -48,19 +54,6 @@ public class UserDAO {
     public UserAuthEntity validateUser(final String token) {
         try {
             return entityManager.createNamedQuery("userByAccessToken", UserAuthEntity.class).setParameter("token", token).getSingleResult();
-        } catch (NoResultException nre) {
-            return null;
-        }
-
-    }
-
-    public void persisAuthtokenEntity(final UserAuthEntity userAuthTokenEntity) {
-        entityManager.persist(userAuthTokenEntity);
-    }
-
-    public UserEntity getUserDetails(String id) {
-        try {
-            return entityManager.createNamedQuery("getUserByUuid", UserEntity.class).setParameter("uuid", id).getSingleResult();
         } catch (NoResultException nre) {
             return null;
         }
@@ -74,11 +67,11 @@ public class UserDAO {
         }
     }
 
-    public void deleteUserInfo(String Uuid) {
-
-        UserEntity deletedUser = entityManager.createNamedQuery("getUserByUuid", UserEntity.class).setParameter("uuid", Uuid).getSingleResult();
-        entityManager.remove(deletedUser);
-
+    public UserEntity getUser(final String userUuid) {
+        return entityManager.createNamedQuery("userByUuid", UserEntity.class).setParameter("uuid", userUuid).getSingleResult();
     }
 
+    public UserEntity deleteUser (final String userUuid){
+        return entityManager.createNamedQuery("deleteByUserUuid", UserEntity.class).setParameter("uuid", userUuid).getSingleResult();
+    }
 }

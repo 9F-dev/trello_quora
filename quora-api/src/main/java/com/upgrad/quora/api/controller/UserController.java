@@ -2,13 +2,14 @@ package com.upgrad.quora.api.controller;
 
 import com.upgrad.quora.api.model.SigninResponse;
 import com.upgrad.quora.api.model.SignoutResponse;
+//import com.upgrad.quora.api.model.SignupUserRequest;
+//import com.upgrad.quora.api.model.SignupUserResponse;
 import com.upgrad.quora.api.model.SignupUserRequest;
 import com.upgrad.quora.api.model.SignupUserResponse;
 import com.upgrad.quora.service.business.SigninBusinessService;
 import com.upgrad.quora.service.business.SignoutBusinessService;
 import com.upgrad.quora.service.business.SignupBusinessService;
-import com.upgrad.quora.service.business.UserSignupService;
-import com.upgrad.quora.service.dao.UserDAO;
+import com.upgrad.quora.service.dao.UserDao;
 import com.upgrad.quora.service.entity.UserAuthEntity;
 import com.upgrad.quora.service.entity.UserEntity;
 import com.upgrad.quora.service.exception.AuthenticationFailedException;
@@ -78,7 +79,7 @@ public class UserController {
         headers.add("access-token", userAuthEntity.getAccessToken());
         return new ResponseEntity<SigninResponse>(authorizedUserResponse, headers, HttpStatus.OK);
     }
-*/
+
     //Method to signout the user of the Application
     //The Methods disables the user access to any other endpoints once signedout of Application
     @RequestMapping(method = RequestMethod.POST, path = "/user/signout", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -92,7 +93,7 @@ public class UserController {
         SignoutResponse signoutResponse = new SignoutResponse().id(userEntity.getUuid()).message("SIGNED OUT SUCCESSFULLY");
         return new ResponseEntity<SignoutResponse>(signoutResponse, HttpStatus.OK);
     }
-
+*/
 
 
 

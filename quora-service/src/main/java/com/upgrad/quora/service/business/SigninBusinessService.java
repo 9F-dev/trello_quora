@@ -1,7 +1,8 @@
 package com.upgrad.quora.service.business;
 
 
-import com.upgrad.quora.service.dao.UserDAO;
+//import com.upgrad.quora.service.dao.UserDao;
+import com.upgrad.quora.service.dao.UserDao;
 import com.upgrad.quora.service.entity.UserAuthEntity;
 import com.upgrad.quora.service.exception.AuthenticationFailedException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ public class SigninBusinessService {
     private PasswordCryptographyProvider cryptographyProvider;
 
     @Autowired
-    private UserDAO userDAO;
+    private UserDao userDAO;
 
     @Autowired
     private AuthenticationService authenticationService;

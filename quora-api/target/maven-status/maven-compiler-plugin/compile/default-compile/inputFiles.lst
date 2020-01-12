@@ -5,6 +5,7 @@ F:\IIITB Blockchain\Course 6\trello-quora-anasuya-smith\quora-api\target\generat
 F:\IIITB Blockchain\Course 6\trello-quora-anasuya-smith\quora-api\target\generated-sources\.\io\swagger\api\ApiOriginFilter.java
 F:\IIITB Blockchain\Course 6\trello-quora-anasuya-smith\quora-api\src\main\java\com\upgrad\quora\api\QuoraApiApplication.java
 F:\IIITB Blockchain\Course 6\trello-quora-anasuya-smith\quora-api\target\generated-sources\.\io\swagger\configuration\SwaggerDocumentationConfig.java
+F:\IIITB Blockchain\Course 6\trello-quora-anasuya-smith\quora-api\src\main\java\com\upgrad\quora\api\controller\AdminController.java
 F:\IIITB Blockchain\Course 6\trello-quora-anasuya-smith\quora-api\target\generated-sources\.\com\upgrad\quora\api\model\QuestionDetailsResponse.java
 F:\IIITB Blockchain\Course 6\trello-quora-anasuya-smith\quora-api\target\generated-sources\.\io\swagger\RFC3339DateFormat.java
 F:\IIITB Blockchain\Course 6\trello-quora-anasuya-smith\quora-api\target\generated-sources\.\com\upgrad\quora\api\model\AnswerEditResponse.java
@@ -17,6 +18,7 @@ F:\IIITB Blockchain\Course 6\trello-quora-anasuya-smith\quora-api\target\generat
 F:\IIITB Blockchain\Course 6\trello-quora-anasuya-smith\quora-api\target\generated-sources\.\io\swagger\api\NotFoundException.java
 F:\IIITB Blockchain\Course 6\trello-quora-anasuya-smith\quora-api\src\main\java\com\upgrad\quora\api\config\SwaggerConfiguration.java
 F:\IIITB Blockchain\Course 6\trello-quora-anasuya-smith\quora-api\target\generated-sources\.\com\upgrad\quora\api\model\AnswerResponse.java
+F:\IIITB Blockchain\Course 6\trello-quora-anasuya-smith\quora-api\src\main\java\com\upgrad\quora\api\controller\CommonController.java
 F:\IIITB Blockchain\Course 6\trello-quora-anasuya-smith\quora-api\target\generated-sources\.\com\upgrad\quora\api\model\QuestionDeleteResponse.java
 F:\IIITB Blockchain\Course 6\trello-quora-anasuya-smith\quora-api\target\generated-sources\.\com\upgrad\quora\api\model\AnswerRequest.java
 F:\IIITB Blockchain\Course 6\trello-quora-anasuya-smith\quora-api\target\generated-sources\.\com\upgrad\quora\api\model\QuestionResponse.java
