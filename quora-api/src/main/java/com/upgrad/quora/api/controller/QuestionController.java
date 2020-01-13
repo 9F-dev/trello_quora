@@ -108,10 +108,10 @@ public class QuestionController {
     }
 
     @DeleteMapping(value = "/delete/{questionId}")
-    public ResponseEntity<QuestionDeleteResponse> deleteQuestion(
+    public ResponseEntity<QuestionDeleteResponse> deleteQuestion (
             @RequestHeader("authorization") final String authorization,
             @PathVariable("questionId") final String questionId, @RequestParam("userId") final String userId)
-            throws AuthorizationFailedException, UserNotFoundException {
+            throws AuthorizationFailedException, UserNotFoundException, InvalidQuestionException{
 
         commonBusinessService.validateUser(authorization);
         UserAuthEntity authTokenEntity = commonBusinessService.getDeleteUserQuestionDetails(userId, authorization);

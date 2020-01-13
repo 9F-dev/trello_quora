@@ -1,8 +1,10 @@
 package com.upgrad.quora.service.business;
 
 
+import com.upgrad.quora.service.dao.AnswerDao;
 import com.upgrad.quora.service.dao.UserDao;
 import com.upgrad.quora.service.dao.QuestionDao;
+import com.upgrad.quora.service.entity.AnswerEntity;
 import com.upgrad.quora.service.entity.QuestionEntity;
 import com.upgrad.quora.service.entity.UserAuthEntity;
 import com.upgrad.quora.service.entity.UserEntity;
@@ -151,23 +153,23 @@ public class CommonBusinessService {
 
 	// Method to get answer Details based on answerID  #14
 	public AnswerEntity findAnswerById(String answerId) throws AnswerNotFoundException {
-		AnswerEntity answer = answerDao.findAnswerById(answerId);
+		AnswerEntity answer = answerDao.getAnswerById(answerId);
 		if (answer == null) {
 			throw new AnswerNotFoundException("ANS-001", "Entered answer uuid does not exist");
 		}
 		return answer;
 	}
 
-	/*
-		// Method to get question Details based on questionID  #15
-		public QuestionEntity findQuestionAnswerById(String questionId) throws AuthorizationFailedException {
-			QuestionEntity question = questionDao.findQuestionById(questionId);
-			if (question == null) {
-				throw new AuthorizationFailedException("QUES-001", "The question entered is invalid");
-			}
-			return question;
+
+	// Method to get question Details based on questionID  #15
+	public QuestionEntity findQuestionAnswerById(String questionId) throws InvalidQuestionException {
+		QuestionEntity question = questionDao.findQuestionById(questionId);
+		if (question == null) {
+			throw new InvalidQuestionException("QUES-001", "The question entered is invalid");
 		}
-	*/
+		return question;
+	}
+
 	// Method to get answer Details based on questionID  #16
 	public QuestionEntity findAllAnswersToQuestionId(String questionId) throws InvalidQuestionException {
 		QuestionEntity question = questionDao.findQuestionById(questionId);

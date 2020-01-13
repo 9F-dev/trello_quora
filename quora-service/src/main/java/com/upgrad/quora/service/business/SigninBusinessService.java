@@ -32,6 +32,7 @@ public class SigninBusinessService {
         UserAuthEntity userAuthToken = new UserAuthEntity();
         authenticationService.authenticate(decodedArray[0], decodedArray[1]);
         //userDao.persisAuthtokenEntity(userAuthToken);
+
         return userAuthToken;
     }
 

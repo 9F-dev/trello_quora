@@ -1,8 +1,10 @@
 package com.upgrad.quora.service.business;
 
-//import com.upgrad.quora.service.dao.AnswerDao;
+
+import com.upgrad.quora.service.dao.AnswerDao;
 import com.upgrad.quora.service.dao.QuestionDao;
 import com.upgrad.quora.service.dao.UserDao;
+import com.upgrad.quora.service.entity.AnswerEntity;
 import com.upgrad.quora.service.entity.QuestionEntity;
 import com.upgrad.quora.service.entity.UserAuthEntity;
 import com.upgrad.quora.service.entity.UserEntity;
@@ -115,10 +117,10 @@ public class AdminBusinessService {
     public void deleteQuestionById(QuestionEntity questionEntity) {
         questionDao.deleteQuestionById(questionEntity);
     }
-
+/*
     @Transactional(propagation = Propagation.REQUIRED)
     public void deleteAnswerById(AnswerEntity answerEntity) {
         answerDao.deleteAnswerById(answerEntity);
 
-    }
+    } */
 }

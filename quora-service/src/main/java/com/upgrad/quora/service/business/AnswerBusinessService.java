@@ -6,6 +6,7 @@ import com.upgrad.quora.service.entity.UserAuthEntity;
 import com.upgrad.quora.service.entity.UserEntity;
 import com.upgrad.quora.service.exception.AnswerNotFoundException;
 import com.upgrad.quora.service.exception.AuthorizationFailedException;
+import com.upgrad.quora.service.exception.InvalidQuestionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -20,7 +21,7 @@ public class AnswerBusinessService {
     private AnswerDao answerDao;
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public AnswerEntity createAnswer(AnswerEntity answerEntity , UserAuthEntity userAuthEntity) throws AuthorizationFailedException {
+    public AnswerEntity createAnswer(AnswerEntity answerEntity , UserAuthEntity userAuthEntity) throws AuthorizationFailedException, InvalidQuestionException {
 
         if (userAuthEntity.getLogoutAt()!=null){
             throw new AuthorizationFailedException("ATHR-002", "User is signed out.Sign in first to post an answer");

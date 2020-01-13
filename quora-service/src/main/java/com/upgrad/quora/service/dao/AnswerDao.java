@@ -1,11 +1,15 @@
 package com.upgrad.quora.service.dao;
 
 import com.upgrad.quora.service.entity.AnswerEntity;
+import com.upgrad.quora.service.exception.InvalidQuestionException;
+import com.upgrad.quora.service.exception.SignUpRestrictedException;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 import java.util.List;
 
 @Repository
@@ -13,13 +17,56 @@ public class AnswerDao {
 
     @PersistenceContext
     private EntityManager entityManager;
-
+/*
     public AnswerEntity createAnswer(AnswerEntity answerEntity)
     {
         entityManager.persist(answerEntity);
         return answerEntity;
     }
+*//** reference
+    public AnswerEntity createAnswer(AnswerEntity answerEntity) throws SignUpRestrictedException {
+        try {
+            entityManager.persist(answerEntity);
+            return answerEntity;
+        } catch (PersistenceException ex) {
+            Throwable t = ex.getCause();
 
+            if (t instanceof ConstraintViolationException) {
+
+                if (((ConstraintViolationException) t).getConstraintName().toString()
+                    .equalsIgnoreCase("users_username_key")) {
+                    throw new SignUpRestrictedException("SGR-001",
+                        "Try any other Username, this Username has already been taken");
+                } else if (((ConstraintViolationException) t).getConstraintName().toString()
+                    .equalsIgnoreCase("users_email_key")) {
+                    throw new SignUpRestrictedException("SGR-002",
+                        "This user has already been registered, try with any other emailId");
+                }
+            }
+            return null;
+        }
+    }
+*/
+
+
+    public AnswerEntity createAnswer(AnswerEntity answerEntity) throws InvalidQuestionException {
+        try {
+            entityManager.persist(answerEntity);
+            return answerEntity;
+        } catch (PersistenceException ex) {
+            Throwable t = ex.getCause();
+
+            if (t instanceof ConstraintViolationException) {
+
+                if (((ConstraintViolationException) t).getConstraintName().toString()
+                        .equalsIgnoreCase("users_questionId_key")) {
+                    throw new InvalidQuestionException("QUES-001",
+                            "The question entered is invalid");
+                }
+            }
+            return null;
+        }
+    }
     public AnswerEntity getAnswerById(String uuid)
     {
         try {
@@ -49,7 +96,8 @@ public class AnswerDao {
 
     public AnswerEntity deleteAnswer(AnswerEntity answerEntity)
     {
-        entityManager.remove(answerEntity);
+        AnswerEntity newAnswerEntity = getAnswerById(answerEntity.getUuid());
+        entityManager.remove(newAnswerEntity);
         return answerEntity;
     }
 
