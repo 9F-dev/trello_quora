@@ -4,7 +4,7 @@ import com.upgrad.quora.api.model.*;
 import com.upgrad.quora.service.business.AnswerBusinessService;
 import com.upgrad.quora.service.business.CommonBusinessService;
 import com.upgrad.quora.service.business.QuestionService;
-import com.upgrad.quora.service.business.UserAdminBusinessService;
+//import com.upgrad.quora.service.business.UserAdminBusinessService;
 import com.upgrad.quora.service.entity.AnswerEntity;
 import com.upgrad.quora.service.entity.QuestionEntity;
 import com.upgrad.quora.service.entity.UserAuthEntity;
@@ -28,8 +28,6 @@ public class AnswerController {
     @Autowired
     private AnswerBusinessService answerBusinessService;
 
-    @Autowired
-    private UserAdminBusinessService userAdminBusinessService;
 
     @Autowired
     private QuestionService questionService;
@@ -37,41 +35,29 @@ public class AnswerController {
     @Autowired
     private CommonBusinessService commonBusinessService;
 
-/*    @RequestMapping(method = RequestMethod.POST, path = "/question/{questionId}/answer/create", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<AnswerResponse> createAnswer(@RequestHeader("authorization") final String authorization,
-                                                       @PathVariable("questionId") final String questionId,
-                                                       final AnswerRequest answerRequest)
-            throws AuthorizationFailedException, InvalidQuestionException, UserNotFoundException { */
+
    public ResponseEntity<AnswerResponse> createAnswer(@RequestHeader("authorization") final String authorization,
                                                       AnswerRequest answerRequest, @RequestParam("userId") final String userId,
                                                       @PathVariable("questionId") final String questionId) throws InvalidQuestionException,
             SignUpRestrictedException, AuthorizationFailedException, UserNotFoundException {
 
         AnswerEntity answerEntity = new AnswerEntity();
-        //commonBusinessService.validateUser(authorization);
-       UserAuthEntity userAuthEntity = commonBusinessService.validateUser(authorization);
-        //UserAuthEntity userAuthEntity = commonBusinessService.getCurrentUserQuestionAnswer(questionId, authorization);
-        //final UserAuthEntity userAuthEntity = commonBusinessService.getUser(authorization);
+
+        UserAuthEntity userAuthEntity = commonBusinessService.validateUser(authorization);
+
         final UserEntity userEntity = commonBusinessService.getUser(userId);
-        //final UserEntity userEntity = commonBusinessService.getUser(authorization);
+
         QuestionEntity questionEntity = commonBusinessService.findQuestionAnswerById(questionId);
-       // final UserAuthEntity userAuthEntity = commonBusinessService.getEditUserAnswerDetails(userId,authorization);
 
-       // UserEntity userEntity = userAuthEntity.getUser();
-        //UserAuthEntity userAuthEntity = userEntity.getUser();
-
-        //AnswerEntity answerEntity = new AnswerEntity();
         answerEntity.setUuid(UUID.randomUUID().toString());
         answerEntity.setDate(ZonedDateTime.now());
         answerEntity.setQuestion(questionEntity);
         answerEntity.setAnswer(answerRequest.getAnswer());
         answerEntity.setUser(userEntity);
 
-        //UserAuthEntity userAuthEntity = commonBusinessService.getloggedinUserDeatils(userEntity, );
 
-        //AnswerEntity createdAnswer = answerBusinessService.createAnswer(answerEntity, userAuthEntity);
         final AnswerEntity createdAnswer = answerBusinessService.createAnswer(answerEntity, userAuthEntity);
-        //AnswerEntity createdAnswer = answerBusinessService.createdAnswer(answerEntity, userAuthEntity);
+
         AnswerResponse answerResponse = new AnswerResponse().id(createdAnswer.getUuid()).
                 status("ANSWER CREATED");
 
@@ -83,11 +69,9 @@ public class AnswerController {
                                                                 @RequestHeader("authorization") final String authorization) throws AuthorizationFailedException,
             AnswerNotFoundException, UserNotFoundException {
 
-        //UserAuthEntity userAuthEntity = commonBusinessService.getUser(authorization);
+
         UserAuthEntity userAuthEntity = commonBusinessService.validateUser(authorization);
         final UserEntity userEntity = commonBusinessService.getUser(authorization);
-        //UserAuthEntity userAuthEntity = userEntity.getId();
-        //final UserAuthEntity userAuthEntity = commonBusinessService.getEditUserAnswerDetails(userId,authorization);
 
         AnswerEntity answerEntity = answerBusinessService.getAnswerFromId(answerId);
         AnswerEntity checkedAnswer = answerBusinessService.checkAnswerBelongToUser(userAuthEntity,answerEntity);
@@ -105,11 +89,10 @@ public class AnswerController {
     public ResponseEntity<AnswerDeleteResponse> deleteAnswer(@PathVariable("answerId") final String answerId, @RequestHeader("authorization") final String authorization)
             throws AuthorizationFailedException, AnswerNotFoundException, UserNotFoundException {
 
-        //UserAuthEntity userAuthEntity = commonBusinessService.getUser(authorization);
+
         UserAuthEntity userAuthEntity = commonBusinessService.validateUser(authorization);
         final UserEntity userEntity = commonBusinessService.getUser(authorization);
-        //UserAuthEntity userAuthEntity = userEntity.getId();
-        //UserEntity userEntity= userAuthEntity.getUser();
+
         AnswerEntity answerEntity = answerBusinessService.getAnswerFromId(answerId);
         AnswerEntity checkedAnswer;
 
@@ -131,10 +114,10 @@ public class AnswerController {
     public ResponseEntity<List<AnswerDetailsResponse>> getAllAnswersToQuestion(@PathVariable("questionId") final String questionId, @RequestHeader("authorization") final String authorization)
             throws AuthorizationFailedException, InvalidQuestionException, UserNotFoundException{
 
-        //UserAuthEntity userAuthEntity = commonBusinessService.getUser(authorization);
+
         UserAuthEntity userAuthEntity = commonBusinessService.validateUser(authorization);
         final UserEntity userEntity = commonBusinessService.getUser(authorization);
-        //UserAuthEntity userAuthEntity = userEntity.getId();
+
         QuestionEntity questionEntity = commonBusinessService.findQuestionAnswerById(questionId);
 
 

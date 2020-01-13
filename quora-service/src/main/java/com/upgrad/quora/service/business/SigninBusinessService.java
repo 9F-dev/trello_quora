@@ -31,7 +31,7 @@ public class SigninBusinessService {
         String[] decodedArray = decodedText.split(":");
         UserAuthEntity userAuthToken = new UserAuthEntity();
         authenticationService.authenticate(decodedArray[0], decodedArray[1]);
-        //userDao.persisAuthtokenEntity(userAuthToken);
+        userDao.persisAuthtokenEntity(userAuthToken);
 
         return userAuthToken;
     }
