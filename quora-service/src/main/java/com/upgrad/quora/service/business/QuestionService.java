@@ -4,6 +4,7 @@ import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.UUID;
 
+import com.upgrad.quora.service.exception.AuthorizationFailedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -28,7 +29,7 @@ public class QuestionService {
 
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public QuestionEntity createQuestion(QuestionEntity questionEntity, UserEntity userEntity)
-            throws InvalidQuestionException, SignUpRestrictedException {
+            throws InvalidQuestionException, SignUpRestrictedException, AuthorizationFailedException {
         QuestionEntity question = new QuestionEntity();
         question.setUuid(UUID.randomUUID().toString());
         question.setContent(questionEntity.getContent());

@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.Objects;
 
 
 @Entity
@@ -87,13 +88,34 @@ public class UserEntity implements Serializable {
 
 
     @Override
-    public boolean equals(Object obj) {
-        return new EqualsBuilder().append(this, obj).isEquals();
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof UserEntity)) return false;
+        UserEntity that = (UserEntity) o;
+        return Objects.equals(getId(), that.getId()) &&
+                Objects.equals(getUuid(), that.getUuid()) &&
+                Objects.equals(getFirstname(), that.getFirstname()) &&
+                Objects.equals(getLastname(), that.getLastname()) &&
+                Objects.equals(getUsername(), that.getUsername()) &&
+                Objects.equals(getEmail(), that.getEmail()) &&
+                Objects.equals(getPassword(), that.getPassword()) &&
+                Objects.equals(getSalt(), that.getSalt()) &&
+                Objects.equals(getCountry(), that.getCountry()) &&
+                Objects.equals(getAboutme(), that.getAboutme()) &&
+                Objects.equals(getDob(), that.getDob()) &&
+                Objects.equals(getRole(), that.getRole()) &&
+                Objects.equals(getContactnumber(), that.getContactnumber());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getUuid(), getFirstname(), getLastname(), getUsername(), getEmail(), getPassword(), getSalt(), getCountry(), getAboutme(), getDob(), getRole(), getContactnumber());
     }
 
     public Integer getId() {
         return id;
     }
+
 
     public void setId(Integer id) {
         this.id = id;

@@ -7,6 +7,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 
+import com.upgrad.quora.service.exception.AuthorizationFailedException;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.stereotype.Repository;
 
@@ -18,7 +19,7 @@ import com.upgrad.quora.service.exception.SignUpRestrictedException;
 public class QuestionDao {
     @PersistenceContext
     private EntityManager entityManager;
-
+/*
     public QuestionEntity createQuestion(QuestionEntity questionEntity) throws SignUpRestrictedException {
         try {
             entityManager.persist(questionEntity);
@@ -40,7 +41,31 @@ public class QuestionDao {
             }
             return null;
         }
+    } */
+
+    public QuestionEntity createQuestion(QuestionEntity questionEntity) throws AuthorizationFailedException {
+        try {
+            entityManager.persist(questionEntity);
+            return questionEntity;
+        } catch (PersistenceException ex) {
+            Throwable t = ex.getCause();
+
+            if (t instanceof ConstraintViolationException) {
+
+                if (((ConstraintViolationException) t).getConstraintName().toString()
+                        .equalsIgnoreCase("question_accessToken_key")) {
+                    throw new AuthorizationFailedException("ATHR-001",
+                            "User has not signed in");
+                } else if (((ConstraintViolationException) t).getConstraintName().toString()
+                        .equalsIgnoreCase("users_uuid_key")) {
+                    throw new AuthorizationFailedException("ATHR-002",
+                            "User is signed out.Sign in first to post a question");
+                }
+            }
+            return null;
+        }
     }
+
 
     public List<QuestionEntity> getAllQuestions() {
         try {
@@ -78,4 +103,6 @@ public class QuestionDao {
             return null;
         }
     }
+
+
 }

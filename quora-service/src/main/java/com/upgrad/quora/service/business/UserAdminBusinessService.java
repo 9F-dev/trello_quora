@@ -6,6 +6,7 @@ import com.upgrad.quora.service.entity.UserAuthEntity;
 import com.upgrad.quora.service.entity.UserEntity;
 import com.upgrad.quora.service.exception.AuthorizationFailedException;
 import com.upgrad.quora.service.exception.UserNotFoundException;
+//import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,7 @@ public class UserAdminBusinessService {
     @Transactional(propagation = Propagation.REQUIRED)
 
     public UserEntity delete(String userUuid, String authToken) throws AuthorizationFailedException, UserNotFoundException {
+    //public UserEntity delete(String userUuid) throws AuthorizationFailedException, UserNotFoundException {
 
         UserAuthEntity userAuthEntity = userAuthDao.getUserAuthFromAuthToken(authToken);
 
