@@ -19,29 +19,7 @@ import com.upgrad.quora.service.exception.SignUpRestrictedException;
 public class QuestionDao {
     @PersistenceContext
     private EntityManager entityManager;
-/*
-    public QuestionEntity createQuestion(QuestionEntity questionEntity) throws SignUpRestrictedException {
-        try {
-            entityManager.persist(questionEntity);
-            return questionEntity;
-        } catch (PersistenceException ex) {
-            Throwable t = ex.getCause();
 
-            if (t instanceof ConstraintViolationException) {
-
-                if (((ConstraintViolationException) t).getConstraintName().toString()
-                        .equalsIgnoreCase("users_username_key")) {
-                    throw new SignUpRestrictedException("SGR-001",
-                            "Try any other Username, this Username has already been taken");
-                } else if (((ConstraintViolationException) t).getConstraintName().toString()
-                        .equalsIgnoreCase("users_email_key")) {
-                    throw new SignUpRestrictedException("SGR-002",
-                            "This user has already been registered, try with any other emailId");
-                }
-            }
-            return null;
-        }
-    } */
 
     public QuestionEntity createQuestion(QuestionEntity questionEntity) throws AuthorizationFailedException {
         try {

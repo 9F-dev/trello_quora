@@ -17,36 +17,6 @@ public class AnswerDao {
 
     @PersistenceContext
     private EntityManager entityManager;
-/*
-    public AnswerEntity createAnswer(AnswerEntity answerEntity)
-    {
-        entityManager.persist(answerEntity);
-        return answerEntity;
-    }
-*//** reference
-    public AnswerEntity createAnswer(AnswerEntity answerEntity) throws SignUpRestrictedException {
-        try {
-            entityManager.persist(answerEntity);
-            return answerEntity;
-        } catch (PersistenceException ex) {
-            Throwable t = ex.getCause();
-
-            if (t instanceof ConstraintViolationException) {
-
-                if (((ConstraintViolationException) t).getConstraintName().toString()
-                    .equalsIgnoreCase("users_username_key")) {
-                    throw new SignUpRestrictedException("SGR-001",
-                        "Try any other Username, this Username has already been taken");
-                } else if (((ConstraintViolationException) t).getConstraintName().toString()
-                    .equalsIgnoreCase("users_email_key")) {
-                    throw new SignUpRestrictedException("SGR-002",
-                        "This user has already been registered, try with any other emailId");
-                }
-            }
-            return null;
-        }
-    }
-*/
 
 
     public AnswerEntity createAnswer(AnswerEntity answerEntity) throws InvalidQuestionException {

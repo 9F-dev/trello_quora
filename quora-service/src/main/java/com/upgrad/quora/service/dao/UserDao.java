@@ -4,15 +4,16 @@ import com.upgrad.quora.service.entity.UserAuthEntity;
 import com.upgrad.quora.service.entity.UserEntity;
 import com.upgrad.quora.service.exception.SignUpRestrictedException;
 import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceException;
 
-@Repository
+import javax.persistence.*;
+
+//@Repository
+@Component
 public class UserDao {
+
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -37,7 +38,8 @@ public class UserDao {
 
     public UserEntity findByUsername(final String userName) {
         try {
-            return entityManager.createNamedQuery("userByUsername", UserEntity.class).setParameter("username", userName).getSingleResult();
+            return entityManager.createNamedQuery("userByUsername", UserEntity.class).
+                    setParameter("username", userName).getSingleResult();
         } catch (NoResultException nre) {
             return null;
         }
@@ -59,6 +61,10 @@ public class UserDao {
         }
     }
 
+    public void persisAuthtokenEntity(final UserAuthEntity userAuthTokenEntity) {
+        entityManager.persist(userAuthTokenEntity);
+    }
+
     public UserAuthEntity getUserAuthDetails(String userUuid, String token) {
         try {
             return entityManager.createNamedQuery("getUserAuthDetailsByUuid", UserAuthEntity.class).setParameter("userUuid", userUuid).setParameter("token", token).getSingleResult();
@@ -68,10 +74,18 @@ public class UserDao {
     }
 
     public UserEntity getUser(final String userUuid) {
-        return entityManager.createNamedQuery("userByUuid", UserEntity.class).setParameter("uuid", userUuid).getSingleResult();
+        try {
+            return entityManager.createNamedQuery("userByUuid", UserEntity.class).setParameter("uuid", userUuid).getSingleResult();
+        } catch (NoResultException nre) {
+            return null;
+        }
+
     }
 
-    public UserEntity deleteUser (final String userUuid){
-        return entityManager.createNamedQuery("deleteByUserUuid", UserEntity.class).setParameter("uuid", userUuid).getSingleResult();
+    public void deleteUser(final String userUuid){
+        //return entityManager.createNamedQuery("deleteByUserUuid", UserEntity.class).setParameter("uuid", userUuid).getSingleResult();
+        UserEntity deletedUser = entityManager.createNamedQuery("deleteByUserUuid", UserEntity.class).setParameter("uuid", userUuid).getSingleResult();
+        entityManager.remove(deletedUser);
     }
 }
+

@@ -14,7 +14,7 @@ import org.springframework.context.annotation.ImportResource;
  */
 @SpringBootApplication
 @Import(ServiceConfiguration.class)
-@EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})
+//@EnableAutoConfiguration
 public class QuoraApiApplication {
     public static void main(String[] args) {
         SpringApplication.run(QuoraApiApplication.class, args);

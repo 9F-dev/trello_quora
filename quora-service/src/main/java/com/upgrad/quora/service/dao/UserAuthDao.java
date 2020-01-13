@@ -17,7 +17,6 @@ public class UserAuthDao {
 
         return entityManager.createNamedQuery("userByAccessToken", UserAuthEntity.class).getSingleResult();
 
-        //return entityManager.createNamedQuery("userAuthByAccessToken", UserAuthEntity.class).getSingleResult();
     }
 
 

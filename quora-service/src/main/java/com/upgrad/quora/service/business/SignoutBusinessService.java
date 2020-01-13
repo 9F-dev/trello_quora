@@ -29,7 +29,7 @@ public class SignoutBusinessService {
     //Method to update LogoutTime of the user
     @Transactional(propagation = Propagation.REQUIRED)
     public void updateLogouttime(final UserAuthEntity userAuthTokenEntity) {
-        //userDAO.persisAuthtokenEntity(userAuthTokenEntity);
+        userDao.persisAuthtokenEntity(userAuthTokenEntity);
     }
 
 

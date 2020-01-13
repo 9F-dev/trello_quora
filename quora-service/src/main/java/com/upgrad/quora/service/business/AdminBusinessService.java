@@ -36,7 +36,7 @@ public class AdminBusinessService {
         return userDetails;
     }
 
-    // Method to getLooged in UserDetails
+    // Method to getLogged in UserDetails
     public UserAuthEntity getloggedinUserDeatils(String userId, String token) throws AuthorizationFailedException {
         UserAuthEntity userAuthDetails = userDao.getUserAuthDetails(userId, token);
         if (userAuthDetails == null) {
